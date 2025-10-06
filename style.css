@@ -1,0 +1,186 @@
+:root {
+  --bg:#ffe6f0;
+  --card:#ffffff;
+  --accent:#ff6f98;
+  --muted:#6b6b6b;
+  --text:#222;
+  --radius:14px;
+  --max-width:900px;
+  --gap:18px;
+}
+
+*{box-sizing:border-box;}
+html,body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,'Helvetica Neue',Arial;background:var(--bg)}
+body{padding:24px;position:relative;}
+
+/* --- Kittys flutuando pelo fundo da página (camada 1) --- */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  background-image:
+    url("images/hello.png"), url("images/hello.png"), url("images/hello.png"),
+    url("images/hello.png"), url("images/hello.png"), url("images/hello.png"),
+    url("images/hello.png"), url("images/hello.png"), url("images/hello.png"),
+    url("images/hello.png"), url("images/hello.png"), url("images/hello.png"),
+    url("images/hello.png"), url("images/hello.png"), url("images/hello.png"),
+    url("images/hello.png"), url("images/hello.png"), url("images/hello.png"),
+    url("images/hello.png"), url("images/hello.png");
+  background-repeat: no-repeat;
+  background-size: 40px,50px,60px,70px,80px,50px,60px,70px,90px,55px,
+                   65px,75px,85px,95px,100px,60px,70px,80px,90px,100px;
+  background-position:
+    5% 10%, 15% 25%, 25% 40%, 35% 55%, 45% 70%,
+    55% 85%, 65% 20%, 75% 35%, 85% 50%, 95% 65%,
+    10% 80%, 20% 5%, 30% 15%, 40% 30%, 50% 45%,
+    60% 60%, 70% 75%, 80% 90%, 90% 15%, 5% 50%;
+  opacity: 0.15;
+  animation: floatKittiesPage 30s ease-in-out infinite alternate;
+}
+
+/* --- camada 2 (mais movimento e posições diferentes) --- */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  background-image:
+    url("images/hello.png"), url("images/hello.png"), url("images/hello.png"),
+    url("images/hello.png"), url("images/hello.png"), url("images/hello.png"),
+    url("images/hello.png"), url("images/hello.png"), url("images/hello.png"),
+    url("images/hello.png"), url("images/hello.png"), url("images/hello.png"),
+    url("images/hello.png"), url("images/hello.png"), url("images/hello.png");
+  background-repeat: no-repeat;
+  background-size: 50px,60px,70px,80px,90px,55px,65px,75px,85px,95px,
+                   60px,70px,80px,90px,100px;
+  background-position:
+    5% 5%, 15% 15%, 25% 25%, 35% 35%, 45% 45%,
+    55% 55%, 65% 65%, 75% 75%, 85% 85%, 95% 95%,
+    10% 90%, 20% 80%, 30% 70%, 40% 60%, 50% 50%;
+  opacity: 0.12;
+  animation: floatKittiesPage2 35s ease-in-out infinite alternate;
+}
+
+/* Mantém conteúdo acima das Kittys */
+body > * { position: relative; z-index: 1; }
+
+/* --- animações de flutuação --- */
+@keyframes floatKittiesPage {
+  0%   { transform: translateY(0px) translateX(0px) rotate(0deg); }
+  50%  { transform: translateY(-50px) translateX(25px) rotate(5deg); }
+  100% { transform: translateY(0px) translateX(-25px) rotate(-5deg); }
+}
+@keyframes floatKittiesPage2 {
+  0%   { transform: translateY(0px) translateX(0px) rotate(0deg); }
+  50%  { transform: translateY(60px) translateX(-30px) rotate(-5deg); }
+  100% { transform: translateY(0px) translateX(30px) rotate(5deg); }
+}
+
+/* --- Card principal --- */
+.card{
+  width:var(--max-width);
+  max-width:100%;
+  margin:0 auto;
+  background:linear-gradient(180deg,var(--card),#fff);
+  border-radius:var(--radius);
+  box-shadow:0 10px 30px rgba(0,0,0,0.12);
+  padding:28px;
+  transition: transform .25s ease;
+}
+.card:hover{ transform: translateY(-4px); }
+
+header h1{
+  margin:0;
+  font-size:28px;
+  color:var(--accent);
+  text-transform:capitalize;
+  letter-spacing:0.3px;
+}
+.subtitle{margin:6px 0 18px;color:var(--muted);font-size:13px}
+
+/* fotos + carta */
+.photos{
+  display:flex;
+  flex-direction:column;
+  gap:var(--gap);
+  margin-bottom:18px;
+  align-items:center;
+}
+.photo{
+  border-radius:10px;
+  overflow:hidden;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  box-shadow:0 6px 18px rgba(0,0,0,0.06);
+  width:100%;
+  max-width:650px;
+}
+.photo img{
+  width:100%;
+  object-fit:cover;
+  aspect-ratio:16/9;
+  transition:transform .28s ease;
+  cursor:zoom-in;
+}
+.photo img:hover{transform:scale(1.03);}
+
+/* carta */
+.letter p{margin:10px 0;line-height:1.6;color:var(--text);font-size:15px;text-align:justify;}
+.signature{margin-top:14px;font-weight:600;text-align:right;}
+
+/* lyrics */
+.lyrics{
+  margin-top:8px;
+  padding:14px;
+  background:rgba(255,255,255,0.6);
+  border-radius:10px;
+}
+.lyrics h2{margin:0 0 8px;color:var(--accent)}
+.lyrics-text p{margin:4px 0;font-size:14px;line-height:1.5}
+
+/* carrossel normal (sem Kittys extras) */
+.carousel{margin-top:24px;position:relative;}
+.carousel h2{color:var(--accent);margin-bottom:12px;}
+.carousel-wrapper{overflow:hidden;border-radius:12px;box-shadow:0 6px 18px rgba(0,0,0,0.06);}
+.carousel-container{display:flex;transition:transform 0.5s ease;width:100%;}
+.carousel-container img{width:100%;flex-shrink:0;height:clamp(220px,50vh,540px);object-fit:contain;background:#ff6f98;}
+
+/* botões do carrossel */
+.carousel button{
+  position:absolute;top:50%;transform:translateY(-50%);
+  background:rgba(0,0,0,0.4);border:none;color:white;
+  font-size:22px;padding:10px;border-radius:50%;cursor:pointer;z-index:5;
+}
+.carousel button:hover{background:rgba(0,0,0,0.6);}
+.carousel .prev{left:12px;} .carousel .next{right:12px;}
+
+/* fullscreen modal */
+.fullscreen{position:fixed;inset:0;background:rgba(0,0,0,0.85);
+  display:flex;align-items:center;justify-content:center;z-index:9999;padding:20px;}
+.fullscreen img{max-width:95%;max-height:95%;object-fit:contain;animation:zoomIn .28s ease;}
+.fullscreen .close-btn{position:absolute;top:18px;right:18px;background:var(--accent);
+  color:#fff;border:none;padding:8px 12px;border-radius:8px;font-weight:600;cursor:pointer;}
+.fullscreen .nav-btn{position:absolute;top:50%;transform:translateY(-50%);
+  background:rgba(255,255,255,0.06);color:#fff;border:none;padding:12px;border-radius:50%;font-size:20px;cursor:pointer;}
+.fullscreen .nav-prev{left:18px;} .fullscreen .nav-next{right:18px;}
+@keyframes zoomIn{from{transform:scale(0.98);opacity:0;}to{transform:scale(1);opacity:1;}}
+
+/* --- Animação fade-up --- */
+[data-animate]{opacity:0;transform:translateY(20px);transition:opacity .8s ease,transform .8s ease;}
+[data-animate].visible{opacity:1;transform:translateY(0);}
+
+/* responsivo */
+@media (max-width:768px){
+  header h1{font-size:22px;text-align:center;}
+  .subtitle{text-align:center;}
+  .card{padding:20px;}
+  .letter p{font-size:14px;}
+}
+@media (max-width:520px){
+  body{padding:12px;}
+  .card{padding:16px;}
+  header h1{font-size:20px;}
+  .carousel-container img{height:clamp(160px,40vh,360px);}
+}
